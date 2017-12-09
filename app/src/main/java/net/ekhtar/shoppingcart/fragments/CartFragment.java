@@ -24,6 +24,7 @@ import net.ekhtar.shoppingcart.adaptors.ProductAdaptor;
 import net.ekhtar.shoppingcart.models.Product;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -79,7 +80,19 @@ public class CartFragment extends Fragment {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Product allProduct=dataSnapshot.getValue(Product.class);
                 cartItems.add(allProduct);
+                double subTotal=0;
+                for(Product product : cartItems) {
+                    subTotal += product.getPrice() * product.getQuantity();
+                    if (product.getQuantity()==1){
+                        tvTotalItems.setText(product.getQuantity()+" item");
+                    }else {
+                        tvTotalItems.setText(product.getQuantity()+" items");
+                    }
+                    tvSubTotal.setText("EGP "+String.valueOf(subTotal));
+                    tvTotalPrice.setText(String.valueOf(subTotal));
+                }
                 productAdaptor.notifyDataSetChanged();
+
             }
 
             @Override
@@ -103,4 +116,5 @@ public class CartFragment extends Fragment {
             }
         });
     }
+
 }

@@ -8,16 +8,24 @@ import android.os.Parcelable;
  */
 
 public class Product implements Parcelable {
-
+    private String id;
     private String name = null, nameِِArabic = null, brand = null , modelNumber = null , mainColor = null ; // Step 1 Data
     private String category = null, mainMaterial = null, productionCountry = null, youtubeID = null;
     private double dimensions = 0.0, weight = 0.0;// Step 2 Data
     private String generalDescription = null, generalDescriptionArabic = null; // Step 3 Data
     private String notes = null, productWarranty = null, box = null, boxArabic = null;
-    private double price = 0.0; int quantity = 0; // Step 3 Data
+    private double price = 0.0; int quantity = 1; // Step 3 Data
     private String imge1 = null, imge2 = null, imge3 = null, imge4 = null, imge5 = null, imge6 = null; // Step 3 Data
 
     public Product() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -227,6 +235,7 @@ public class Product implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
         dest.writeString(this.name);
         dest.writeString(this.nameِِArabic);
         dest.writeString(this.brand);
@@ -245,7 +254,7 @@ public class Product implements Parcelable {
         dest.writeString(this.box);
         dest.writeString(this.boxArabic);
         dest.writeDouble(this.price);
-        dest.writeDouble(this.quantity);
+        dest.writeInt(this.quantity);
         dest.writeString(this.imge1);
         dest.writeString(this.imge2);
         dest.writeString(this.imge3);
@@ -255,6 +264,7 @@ public class Product implements Parcelable {
     }
 
     protected Product(Parcel in) {
+        this.id = in.readString();
         this.name = in.readString();
         this.nameِِArabic = in.readString();
         this.brand = in.readString();

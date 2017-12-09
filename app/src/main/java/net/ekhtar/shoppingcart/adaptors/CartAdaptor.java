@@ -1,5 +1,6 @@
 package net.ekhtar.shoppingcart.adaptors;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 import net.ekhtar.shoppingcart.R;
+import net.ekhtar.shoppingcart.fragments.CartFragment;
 import net.ekhtar.shoppingcart.fragments.ProductDetailsFragment;
 import net.ekhtar.shoppingcart.models.Product;
 
@@ -45,28 +47,30 @@ public class CartAdaptor extends RecyclerView.Adapter<CartAdaptor.CartViewHolder
         holder.tvProductPrice.setText(String.valueOf(cartProduct.getPrice()));
         Picasso.with(context).load(cartProduct.getImge1()).into(holder.ivProductPic);
 
+
+
         holder.tvQty.setText(String.valueOf(cartProduct.getQuantity()));
         holder.ivAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int qty=cartProduct.getQuantity();
-                if (qty<5){
-                    cartProduct.setQuantity(qty+1);
+                int quantity =cartProduct.getQuantity();
+                if (quantity < 5){
+                    cartProduct.setQuantity(quantity+1);
                     holder.tvQty.setText(String.valueOf(cartProduct.getQuantity()));
                 }else {
-                    Toast.makeText(context, "Maximum Quantity is "+qty, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Maximum Quantity is "+quantity, Toast.LENGTH_SHORT).show();
                 }
             }
         });
         holder.ivSub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int qty=cartProduct.getQuantity();
-                if (qty>1){
-                    cartProduct.setQuantity(qty-1);
+                int quantity =cartProduct.getQuantity();
+                if (quantity >1){
+                    cartProduct.setQuantity(quantity-1);
                     holder.tvQty.setText(String.valueOf(cartProduct.getQuantity()));
                 }else {
-                    Toast.makeText(context, "Minimum Quantity is "+qty, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Minimum Quantity is "+quantity, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -80,6 +84,8 @@ public class CartAdaptor extends RecyclerView.Adapter<CartAdaptor.CartViewHolder
                 ((AppCompatActivity) v.getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, detailsFragment).addToBackStack(null).commit();
             }
         });
+
+
     }
 
     @Override
